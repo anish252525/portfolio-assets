@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANISH — Graphic Designer</title>
+    <meta name="color-scheme" content="light">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -13,18 +14,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            background: #fafafa;
+            color-scheme: light only;
+        }
+
         body {
             background: #fafafa;
             color: #1a1a1a;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-        }
-
-        /* Force light mode */
-        html {
-            background: #fafafa;
-            color-scheme: light;
         }
 
         /* Navigation */
@@ -149,26 +149,11 @@
             justify-content: flex-end;
         }
 
-        .hero-image-container {
+        .hero-image img {
             width: 100%;
             max-width: 450px;
-            aspect-ratio: 3/4;
-            background: #f0f0f0;
-            border: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            color: #999;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-image-container img {
-            width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: contain;
-            object-position: center;
         }
 
         /* About Section */
@@ -270,101 +255,40 @@
             border: 1px solid #e0e0e0;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
         }
 
         .work-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .work-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
         }
 
-        .work-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .work-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            color: #999;
-        }
-
-        .work-placeholder .icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .work-placeholder .title {
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-            color: #1a1a1a;
-        }
-
-        .work-placeholder .subtitle {
-            font-size: 0.8rem;
-        }
-
-        .work-info {
+        .work-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 1.5rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
             color: white;
-            opacity: 0;
-            transition: opacity 0.3s;
         }
 
-        .work-item:hover .work-info {
-            opacity: 1;
-        }
-
-        .work-info h3 {
-            font-size: 0.95rem;
-            margin-bottom: 0.2rem;
+        .work-overlay h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
             font-weight: 500;
         }
 
-        .work-info p {
+        .work-overlay p {
             color: #ddd;
-            font-size: 0.8rem;
-            font-weight: 300;
-        }
-
-        .view-project-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 0.8rem 2rem;
-            background: #1a1a1a;
-            color: #fff;
-            border: none;
             font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-
-        .work-item:hover .view-project-btn {
-            opacity: 1;
-        }
-
-        .view-project-btn:hover {
-            background: #000;
+            font-weight: 300;
         }
 
         /* See More Button */
@@ -396,7 +320,7 @@
             display: none;
         }
 
-        /* PDF Modal */
+        /* PDF Modal - Behance Style */
         .pdf-modal {
             display: none;
             position: fixed;
@@ -404,14 +328,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: #fafafa;
             z-index: 2000;
             animation: fadeIn 0.3s;
+            overflow-y: auto;
         }
 
         .pdf-modal.active {
-            display: flex;
-            flex-direction: column;
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -420,76 +344,53 @@
         }
 
         .pdf-modal-header {
+            position: sticky;
+            top: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2rem;
-            background: #000;
-            border-bottom: 1px solid #333;
+            padding: 1.5rem 3rem;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 10;
         }
 
         .pdf-modal-title {
-            color: #fff;
-            font-size: 1.1rem;
+            color: #1a1a1a;
+            font-size: 1.2rem;
             font-weight: 500;
-        }
-
-        .pdf-modal-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .pdf-modal-controls button {
-            background: none;
-            border: 1px solid #666;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .pdf-modal-controls button:hover {
-            border-color: #fff;
-            background: #222;
         }
 
         .close-modal {
-            background: #fff !important;
-            color: #000 !important;
-            border: none !important;
-            font-weight: 500;
+            background: none;
+            border: none;
+            color: #1a1a1a;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
 
         .close-modal:hover {
-            background: #f0f0f0 !important;
+            background: #f0f0f0;
+            border-radius: 50%;
         }
 
-        .pdf-viewer-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-            padding: 2rem;
-            background: #f5f5f5;
+        .pdf-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem;
         }
 
-        .pdf-viewer-container iframe {
+        .pdf-content img {
             width: 100%;
-            max-width: 1200px;
-            height: 100%;
-            min-height: 600px;
-            border: none;
-            background: #fff;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .pdf-embed {
-            width: 100%;
-            height: 100%;
-            border: none;
+            height: auto;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         /* Skills & Clients */
@@ -710,6 +611,14 @@
             .clients-row {
                 grid-template-columns: 1fr;
             }
+
+            .pdf-modal-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .pdf-content {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -739,9 +648,7 @@
             </div>
         </div>
         <div class="hero-image">
-            <div class="hero-image-container">
-                <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/anish1.png" alt="Anish Portrait">
-            </div>
+            <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/anish1.png" alt="Anish Portrait">
         </div>
     </section>
 
@@ -752,6 +659,7 @@
             <div class="about-content">
                 <div class="about-text">
                     <p>I'm a graphic designer specializing in event branding, corporate identity and social media. With over <strong>6 years of experience</strong>, I've had the privilege of working on large-scale projects with big brands, government bodies, international organizations, and major companies and events.</p>
+                    <p>I design with evolving design trends and leverage AI tools to create innovative solutions that blend creativity with cutting-edge technology.</p>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-box">
@@ -781,111 +689,73 @@
             <div class="section-label">SELECTED WORK</div>
             <div>
                 <div class="work-grid" id="workGrid">
-                    <!-- First 6 items visible by default (2 rows x 3 columns) -->
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Tourism Capital</div>
-                            <div class="subtitle">Event Branding</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work1.jpg" alt="Tourism Capital" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Tourism Capital of Nepal</h3>
                             <p>Complete Branding</p>
                         </div>
                     </div>
                     
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Visit Year 2025</div>
-                            <div class="subtitle">Campaign Design</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work2.jpg" alt="Visit Year 2025" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Pokhara Visit Year 2025</h3>
                             <p>Campaign Design</p>
                         </div>
                     </div>
                     
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">PATA Summit</div>
-                            <div class="subtitle">Event Branding</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work3.jpg" alt="PATA Summit" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>PATA Annual Summit</h3>
                             <p>Event Branding</p>
                         </div>
                     </div>
                     
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Airport</div>
-                            <div class="subtitle">Event Identity</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work4.jpg" alt="Airport" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Airport Inauguration</h3>
                             <p>Event Identity</p>
                         </div>
                     </div>
                     
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Tiger Cup</div>
-                            <div class="subtitle">Sports Branding</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work5.jpg" alt="Tiger Cup" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Tiger Cup Volleyball</h3>
                             <p>Sports Branding</p>
                         </div>
                     </div>
                     
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Dragon Boat</div>
-                            <div class="subtitle">Event Design</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work6.jpg" alt="Dragon Boat" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Dragon Boat Race</h3>
                             <p>Event Design</p>
                         </div>
                     </div>
 
-                    <!-- Hidden items (shown on "See More") -->
                     <div class="work-item hidden">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Street Festival</div>
-                            <div class="subtitle">Event Branding</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work7.jpg" alt="Street Festival" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Pokhara Street Festival</h3>
                             <p>Event Branding</p>
                         </div>
                     </div>
                     
                     <div class="work-item hidden">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">NISA Conference</div>
-                            <div class="subtitle">Corporate Event</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work8.jpg" alt="NISA Conference" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>NISA Hydropower Conference</h3>
                             <p>Corporate Event</p>
                         </div>
                     </div>
 
                     <div class="work-item hidden">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Embassy Events</div>
-                            <div class="subtitle">Diplomatic Branding</div>
-                        </div>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/work9.jpg" alt="Embassy Events" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Embassy Events</h3>
                             <p>Diplomatic Branding</p>
                         </div>
@@ -905,39 +775,24 @@
             <div>
                 <div class="work-grid" id="brandGrid">
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Lumino Technology</div>
-                            <div class="subtitle">Brand Identity</div>
-                        </div>
-                        <button class="view-project-btn" onclick="openPDF('Lumino Technology', 'https://github.com/anish252525/portfolio-assets/raw/main/your-file.pdf')">View Project</button>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/lumino.jpg" alt="Lumino Technology" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Lumino Technology</h3>
                             <p>Brand Identity</p>
                         </div>
                     </div>
                     
-                    <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Sajilo Care</div>
-                            <div class="subtitle">Complete Identity</div>
-                        </div>
-                        <button class="view-project-btn" onclick="openPDF('Sajilo Care - Brand Guidelines', 'https://github.com/anish252525/portfolio-assets/raw/main/Sajilo_Care_Brand_Guide_V1.00.pdf')">View Project</button>
-                        <div class="work-info">
+                    <div class="work-item" onclick="openPDF('Sajilo Care - Brand Guidelines', 'https://github.com/anish252525/portfolio-assets/raw/main/Sajilo_Care_Brand_Guide_V1.00.pdf')">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/sajilo.jpg" alt="Sajilo Care" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Sajilo Care</h3>
-                            <p>Complete Identity</p>
+                            <p>Complete Brand Identity</p>
                         </div>
                     </div>
                     
                     <div class="work-item">
-                        <div class="work-placeholder">
-                            <div class="icon">📄</div>
-                            <div class="title">Akala Tech</div>
-                            <div class="subtitle">Visual System</div>
-                        </div>
-                        <button class="view-project-btn" onclick="openPDF('Akala Tech', 'https://github.com/anish252525/portfolio-assets/raw/main/your-file.pdf')">View Project</button>
-                        <div class="work-info">
+                        <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/placeholders/akala.jpg" alt="Akala Tech" onerror="this.style.display='none'">
+                        <div class="work-overlay">
                             <h3>Akala Tech</h3>
                             <p>Visual System</p>
                         </div>
@@ -952,7 +807,6 @@
         <div class="info-layout">
             <div class="section-label">EXPERTISE</div>
             <div class="info-content">
-                <!-- Services & Tools Row -->
                 <div class="services-tools-row">
                     <div class="info-box">
                         <h3>DESIGN SERVICES</h3>
@@ -978,7 +832,6 @@
                     </div>
                 </div>
 
-                <!-- Clients Row -->
                 <div class="info-box">
                     <h3>CLIENTS</h3>
                     <div class="clients-row">
@@ -1019,16 +872,14 @@
         <p>© 2026 ANISH — Graphic Designer</p>
     </footer>
 
-    <!-- PDF Modal -->
+    <!-- PDF Modal - Behance Style -->
     <div class="pdf-modal" id="pdfModal">
         <div class="pdf-modal-header">
             <div class="pdf-modal-title" id="pdfTitle">Project Name</div>
-            <div class="pdf-modal-controls">
-                <button onclick="closePDF()" class="close-modal">Close</button>
-            </div>
+            <button onclick="closePDF()" class="close-modal">×</button>
         </div>
-        <div class="pdf-viewer-container">
-            <iframe id="pdfViewer" src=""></iframe>
+        <div class="pdf-content" id="pdfContent">
+            <!-- PDF pages will be loaded here as images -->
         </div>
     </div>
 
@@ -1053,27 +904,33 @@
             }
         });
 
-        // PDF Modal Functions
+        // PDF Modal - Behance Style
         function openPDF(title, pdfUrl) {
             const modal = document.getElementById('pdfModal');
             const pdfTitle = document.getElementById('pdfTitle');
-            const pdfViewer = document.getElementById('pdfViewer');
-            
-            // Use Google Docs viewer to prevent download and enable viewing
-            const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+            const pdfContent = document.getElementById('pdfContent');
             
             pdfTitle.textContent = title;
-            pdfViewer.src = viewerUrl;
+            
+            // Use Google Docs viewer embedded
+            pdfContent.innerHTML = `
+                <iframe 
+                    src="https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true" 
+                    style="width: 100%; height: 90vh; border: none;"
+                    frameborder="0">
+                </iframe>
+            `;
+            
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closePDF() {
             const modal = document.getElementById('pdfModal');
-            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfContent = document.getElementById('pdfContent');
             
             modal.classList.remove('active');
-            pdfViewer.src = '';
+            pdfContent.innerHTML = '';
             document.body.style.overflow = 'auto';
         }
 
