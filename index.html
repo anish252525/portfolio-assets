@@ -123,11 +123,17 @@
             height: 20px;
             border-radius: 50%;
             background: var(--bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             transition: transform 0.3s;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: #4a4a4a;
         }
 
         [data-theme="dark"] .theme-toggle::after {
             transform: translateX(24px);
+            background: var(--bg);
         }
 
         /* Hero Section */
