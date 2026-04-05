@@ -215,10 +215,7 @@
         }
 
         .about-content {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 4rem;
-            align-items: start;
+            max-width: 900px;
         }
 
         .about-text p {
@@ -432,7 +429,7 @@
 
         /* Skills & Clients */
         .info-section {
-            padding: 4rem 4rem;
+            padding: 6rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
             border-top: 1px solid #e0e0e0;
@@ -440,55 +437,55 @@
 
         .info-layout {
             display: grid;
-            grid-template-columns: 0.4fr 1.6fr;
-            gap: 6rem;
+            grid-template-columns: 0.3fr 1.7fr;
+            gap: 4rem;
         }
 
         .info-content {
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 4rem;
         }
 
         .services-tools-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 6rem;
         }
 
         .info-box h3 {
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             color: #999;
         }
 
         .info-box ul {
             list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
         }
 
         .info-box li {
-            padding: 0.4rem 0;
             color: #666;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 300;
         }
 
         .clients-row {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
         .client-badge {
-            padding: 0.8rem 0.5rem;
+            padding: 1.2rem 1rem;
             background: #fff;
             border: 1px solid #e0e0e0;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #666;
             text-align: center;
             transition: all 0.3s;
@@ -497,11 +494,12 @@
         .client-badge:hover {
             border-color: #1a1a1a;
             color: #1a1a1a;
+            transform: translateY(-2px);
         }
 
         /* Contact Section */
         .contact-section {
-            padding: 4rem 4rem;
+            padding: 6rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
             border-top: 1px solid #e0e0e0;
@@ -509,21 +507,22 @@
 
         .contact-layout {
             display: grid;
-            grid-template-columns: 0.4fr 1.6fr;
-            gap: 6rem;
+            grid-template-columns: 0.3fr 1.7fr;
+            gap: 4rem;
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 4rem;
         }
 
         .contact-item h4 {
             font-size: 0.75rem;
             color: #999;
-            margin-bottom: 0.6rem;
-            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             font-weight: 500;
         }
 
@@ -531,7 +530,7 @@
         .contact-item span {
             color: #1a1a1a;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 400;
             transition: opacity 0.3s;
         }
@@ -624,15 +623,15 @@
 
             .services-tools-row {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 3rem;
             }
 
             .info-box ul {
-                grid-template-columns: 1fr;
+                flex-direction: column;
             }
 
             .clients-row {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
         }
 
@@ -692,11 +691,15 @@
             }
 
             .info-box ul {
-                grid-template-columns: 1fr;
+                flex-direction: column;
             }
 
             .clients-row {
                 grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                gap: 2rem;
             }
 
             .pdf-modal-header {
@@ -749,15 +752,15 @@
                     <div class="stat-label">Years</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number">50+</div>
+                    <div class="stat-number">75+</div>
                     <div class="stat-label">Projects</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number">20+</div>
+                    <div class="stat-number">25+</div>
                     <div class="stat-label">Events</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number">15+</div>
+                    <div class="stat-number">20+</div>
                     <div class="stat-label">Brands</div>
                 </div>
             </div>
@@ -779,24 +782,6 @@
                 <div class="about-text">
                     <p>With <strong>6+ years</strong> in the field, I create visual identities and experiences for events, brands, and social media. My clients include government bodies, international organizations, and major brands across Nepal.</p>
                     <p>I keep up with design trends and integrate AI tools into my workflow. I also have foundational skills in video editing and motion graphics using Premiere Pro and After Effects.</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-number">6+</div>
-                        <div class="stat-label">YEARS</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">PROJECTS</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">EVENTS</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">BRANDS</div>
-                    </div>
                 </div>
             </div>
         </div>
