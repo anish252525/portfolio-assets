@@ -338,6 +338,143 @@
         }
         @keyframes blink { 50% { opacity: 0; } }
 
+        /* ── SPOTLIGHT CURSOR GLOW ── */
+        .spotlight {
+            position: fixed; inset: 0; pointer-events: none; z-index: 8998;
+            background: radial-gradient(500px circle at 50% 50%, rgba(0,0,0,0.04), transparent 70%);
+            transition: background 0.05s;
+        }
+
+        /* ── ROTATING BADGE ── */
+        .hero-image { position: relative; }
+        .rotating-badge-wrap {
+            position: absolute; bottom: 2rem; right: 0;
+            width: 130px; height: 130px;
+            display: flex; align-items: center; justify-content: center;
+            animation: heroFadeIn 1.2s 0.8s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .rotating-badge {
+            position: absolute; inset: 0;
+            animation: rotateBadge 14s linear infinite;
+        }
+        .rotating-badge text {
+            font-size: 10.5px; letter-spacing: 3.5px;
+            fill: #1a1a1a; font-family: 'Inter', sans-serif; font-weight: 500;
+        }
+        .rotating-badge-star {
+            font-size: 1.3rem; color: #1a1a1a; z-index: 1; user-select: none;
+        }
+        @keyframes rotateBadge { to { transform: rotate(360deg); } }
+        @media (max-width: 768px) {
+            .rotating-badge-wrap { width: 90px; height: 90px; bottom: 0; right: 0; }
+            .rotating-badge text { font-size: 7.5px; letter-spacing: 2.5px; }
+            .rotating-badge-star { font-size: 0.9rem; }
+        }
+
+        /* ── NAV ACTIVE SECTION INDICATOR ── */
+        nav ul li { position: relative; }
+        nav ul li a::after {
+            content: ''; position: absolute; bottom: -3px; left: 0;
+            width: 0; height: 1.5px; background: #1a1a1a;
+            transition: width 0.35s cubic-bezier(0.22,1,0.36,1);
+        }
+        nav ul li a.active-section::after,
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a { position: relative; }
+
+        /* ── WORD-BY-WORD REVEAL on about text ── */
+        .word-reveal { display: inline-block; overflow: hidden; vertical-align: bottom; }
+        .word-inner {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
+        }
+        .word-inner.in { transform: translateY(0); }
+
+        /* ── IMAGE ZOOM on card hover ── */
+        .work-item img {
+            transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
+        }
+        .work-item:hover img { transform: scale(1.09); }
+
+        /* ── EXPERTISE LIST STAGGER ── */
+        .info-box li {
+            opacity: 0; transform: translateX(-20px);
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+        }
+        .info-box li.in { opacity: 1; transform: translateX(0); }
+
+        /* ── CONTACT ITEM HOVER ── */
+        .contact-item { overflow: hidden; }
+        .contact-item h4 {
+            opacity: 0; transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .contact-item.in h4 { opacity: 1; transform: translateY(0); }
+        .contact-item a, .contact-item span {
+            opacity: 0; transform: translateY(14px);
+            transition: opacity 0.5s 0.1s ease, transform 0.5s 0.1s cubic-bezier(0.22,1,0.36,1);
+            display: inline-block;
+        }
+        .contact-item.in a, .contact-item.in span { opacity: 1; transform: translateY(0); }
+
+        /* ── STAT BOX ENTRANCE ── */
+        .stat-box {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .stat-box.in { opacity: 1; transform: translateY(0); }
+
+        /* ── CROSSHAIR CORNER DECO on work cards ── */
+        .work-item::before, .work-item::after {
+            content: ''; position: absolute;
+            width: 16px; height: 16px; z-index: 3; pointer-events: none;
+            opacity: 0; transition: opacity 0.35s ease;
+        }
+        .work-item::before {
+            top: 10px; left: 10px;
+            border-top: 1.5px solid rgba(255,255,255,0.7);
+            border-left: 1.5px solid rgba(255,255,255,0.7);
+        }
+        .work-item::after {
+            bottom: 10px; right: 10px;
+            border-bottom: 1.5px solid rgba(255,255,255,0.7);
+            border-right: 1.5px solid rgba(255,255,255,0.7);
+        }
+        .work-item:hover::before, .work-item:hover::after { opacity: 1; }
+
+        /* ── BRAND CARD HOVER TEXT REVEAL ── */
+        .brand-hover-label {
+            position: absolute; top: 1rem; right: 1rem;
+            background: #fff; color: #1a1a1a;
+            font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+            font-weight: 600; padding: 0.35rem 0.7rem;
+            opacity: 0; transform: translateY(-6px);
+            transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+            z-index: 4;
+        }
+        .work-item:hover .brand-hover-label { opacity: 1; transform: translateY(0); }
+
+        /* ── FOOTER DECO ── */
+        footer { position: relative; overflow: hidden; }
+        footer::before {
+            content: 'ANISH'; position: absolute;
+            font-size: 8rem; font-weight: 800; color: rgba(0,0,0,0.03);
+            top: 50%; left: 50%; transform: translate(-50%,-50%);
+            letter-spacing: -0.04em; pointer-events: none; white-space: nowrap;
+        }
+
+        /* ── SECOND MARQUEE (reversed) ── */
+        .marquee-track-reverse {
+            display: flex; gap: 0; white-space: nowrap;
+            animation: marqueeReverse 18s linear infinite;
+            width: max-content;
+        }
+        @keyframes marqueeReverse {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(0); }
+        }
+
         /* ── INTRO LOADER ── */
         .intro-loader {
             position: fixed; inset: 0; background: #1a1a1a; z-index: 999999;
@@ -483,6 +620,8 @@
 
 <!-- FILM GRAIN -->
 <div class="grain-overlay"></div>
+<!-- SPOTLIGHT -->
+<div class="spotlight" id="spotlight"></div>
 
 <nav>
     <div class="logo">
@@ -521,6 +660,15 @@
     </div>
     <div class="hero-image">
         <img src="https://raw.githubusercontent.com/anish252525/portfolio-assets/main/anish1.png" alt="Anish Portrait">
+        <div class="rotating-badge-wrap">
+            <svg class="rotating-badge" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <path id="badgePath" d="M65,65 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/>
+                </defs>
+                <text><textPath href="#badgePath">GRAPHIC DESIGNER · POKHARA · NEPAL · 6+ YEARS · </textPath></text>
+            </svg>
+            <span class="rotating-badge-star">✦</span>
+        </div>
     </div>
 </section>
 <!-- MARQUEE TICKER -->
