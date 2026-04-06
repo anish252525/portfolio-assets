@@ -175,14 +175,16 @@
         <div>
             <div class="filter-bar">
                 <button class="filter-btn active" data-filter="all">ALL</button>
-                <button class="filter-btn" data-filter="city-tourism">CITY &amp; TOURISM</button>
-                <button class="filter-btn" data-filter="intl-govt">INTERNATIONAL &amp; GOVT</button>
-                <button class="filter-btn" data-filter="sports">SPORTS</button>
-                <button class="filter-btn" data-filter="clubs-orgs">CLUBS &amp; ORGS</button>
-                <button class="filter-btn" data-filter="corporate-expo">CORPORATE &amp; EXPO</button>
-                <button class="filter-btn" data-filter="cultural">CULTURAL &amp; ENTERTAINMENT</button>
+                <button class="filter-btn" data-filter="city-tourism">CITY BRANDING &amp; TOURISM</button>
+                <button class="filter-btn" data-filter="intl-govt">INTERNATIONAL, GOVT &amp; INSTITUTIONAL</button>
+                <button class="filter-btn" data-filter="sports">SPORTS &amp; PUBLIC EVENTS</button>
+                <button class="filter-btn" data-filter="clubs-orgs">CLUBS, CONVENTIONS &amp; ORGS</button>
+                <button class="filter-btn" data-filter="corporate-expo">CORPORATE, EXPO &amp; TRADE</button>
+                <button class="filter-btn" data-filter="cultural">CULTURAL, ENTERTAINMENT &amp; COMMUNITY</button>
                 <button class="filter-btn" data-filter="religious">RELIGIOUS &amp; FESTIVAL</button>
-                <button class="filter-btn" data-filter="other">OTHER</button>
+                <button class="filter-btn" data-filter="agriculture">AGRICULTURE &amp; REGIONAL</button>
+                <button class="filter-btn" data-filter="political">POLITICAL &amp; ORGANIZATIONAL</button>
+                <button class="filter-btn" data-filter="education">EDUCATION &amp; INSTITUTIONAL</button>
             </div>
             <div class="work-grid" id="workGrid">
                 <div class="work-item" data-cat="city-tourism"><img src="https://placehold.co/800x600/667eea/ffffff?text=Tourism+Capital" alt=""><div class="work-overlay"><h3>Pokhara: Tourism Capital of Nepal</h3><p>Full Branding</p></div></div>
@@ -233,10 +235,10 @@
                 <div class="work-item" data-cat="cultural"><img src="https://placehold.co/800x600/ea580c/ffffff?text=Teej+Festival" alt=""><div class="work-overlay"><h3>Teej Festival</h3><p>Festival Design</p></div></div>
                 <div class="work-item" data-cat="cultural"><img src="https://placehold.co/800x600/dc2626/ffffff?text=World+Egg+Day" alt=""><div class="work-overlay"><h3>World Egg Day</h3><p>Event Design</p></div></div>
                 <div class="work-item" data-cat="religious"><img src="https://placehold.co/800x600/f59e0b/ffffff?text=Krishna+ISKCON" alt=""><div class="work-overlay"><h3>Krishna Janmashtami (ISKCON)</h3><p>Religious Event</p></div></div>
-                <div class="work-item" data-cat="other"><img src="https://placehold.co/800x600/65a30d/ffffff?text=Krishi+Mela" alt=""><div class="work-overlay"><h3>Krishi Paryatan Mela (Mustang)</h3><p>Agriculture Event</p></div></div>
-                <div class="work-item" data-cat="other"><img src="https://placehold.co/800x600/16a34a/ffffff?text=NCP+UML" alt=""><div class="work-overlay"><h3>NCP UML Party Designs</h3><p>Political Design</p></div></div>
-                <div class="work-item" data-cat="other"><img src="https://placehold.co/800x600/15803d/ffffff?text=Prativa+School" alt=""><div class="work-overlay"><h3>Prativa Secondary School Anniversary</h3><p>Institutional Design</p></div></div>
-                <div class="work-item" data-cat="other"><img src="https://placehold.co/800x600/166534/ffffff?text=Social+School" alt=""><div class="work-overlay"><h3>Social Public School Anniversary</h3><p>Institutional Design</p></div></div>
+                <div class="work-item" data-cat="agriculture"><img src="https://placehold.co/800x600/65a30d/ffffff?text=Krishi+Mela" alt=""><div class="work-overlay"><h3>Krishi Paryatan Mela (Mustang)</h3><p>Agriculture &amp; Regional Event</p></div></div>
+                <div class="work-item" data-cat="political"><img src="https://placehold.co/800x600/16a34a/ffffff?text=NCP+UML" alt=""><div class="work-overlay"><h3>NCP UML Party Designs</h3><p>Political &amp; Organizational</p></div></div>
+                <div class="work-item" data-cat="education"><img src="https://placehold.co/800x600/15803d/ffffff?text=Prativa+School" alt=""><div class="work-overlay"><h3>Prativa Secondary School Anniversary</h3><p>Education &amp; Institutional</p></div></div>
+                <div class="work-item" data-cat="education"><img src="https://placehold.co/800x600/166534/ffffff?text=Social+School" alt=""><div class="work-overlay"><h3>Social Public School Anniversary</h3><p>Education &amp; Institutional</p></div></div>
             </div>
             <div id="noResults" style="display:none; text-align:center; color:#999; padding:3rem 0;">No projects in this category yet.</div>
             <div class="see-more" id="seeMoreWrap">
@@ -323,7 +325,7 @@
 </div>
 <script>
     // ── FILTER + SEE MORE ──────────────────────────────────────────
-    var SHOW = 6; // Show 2 rows of 3 initially
+    var SHOW = 3; // Show 1 row of 3 initially
 
     var currentFilter = 'all';
     var expanded = false;
