@@ -51,8 +51,7 @@
         .filter-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
         .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
         .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        /* Hide all work items by default; JS will show the correct ones */
-        #workGrid .work-item { display: none; }
+        /* Items are shown/hidden entirely by JS inline styles */
         .work-item {
             position: relative; aspect-ratio: 4/3; background: #f0f0f0;
             border: 1px solid #e0e0e0; overflow: hidden; cursor: pointer; transition: all 0.3s;
@@ -346,9 +345,9 @@
         var toShow = expanded ? matched : matched.slice(0, SHOW);
         var showSet = new Set(toShow);
 
-        // Show/hide each item — use '' to let CSS control the display type
+        // Show/hide each item with explicit values so CSS never interferes
         allItems.forEach(function(item) {
-            item.style.display = showSet.has(item) ? '' : 'none';
+            item.style.display = showSet.has(item) ? 'block' : 'none';
         });
 
         // Empty-state message
