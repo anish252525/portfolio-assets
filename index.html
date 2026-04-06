@@ -315,10 +315,14 @@
         /* ── HERO HEADING SCRAMBLE PLACEHOLDER ── */
         .hero-content h1 { will-change: contents; }
 
-        /* ── HERO IMAGE — 3D parallax via JS, gentle transition ── */
+        /* ── HERO IMAGE — gentle float + mouse parallax via JS ── */
         .hero-image img {
             will-change: transform;
-            transition: transform 0.15s ease-out;
+            animation: heroFloat 6s ease-in-out infinite;
+        }
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-12px); }
         }
 
         /* ── WORK ITEM 3D TILT — transition override ── */
@@ -537,6 +541,73 @@
             letter-spacing: -0.04em; pointer-events: none; white-space: nowrap;
         }
 
+        /* ── SECTION ENTRANCE with depth ── */
+        .section {
+            transition: opacity 0.01s; /* avoids FOUC */
+        }
+        .section-3d {
+            opacity: 0;
+            transform: perspective(1000px) translateY(40px) rotateX(4deg);
+            transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1),
+                        transform 0.8s cubic-bezier(0.22,1,0.36,1);
+            transform-origin: top center;
+        }
+        .section-3d.in {
+            opacity: 1;
+            transform: perspective(1000px) translateY(0) rotateX(0deg);
+        }
+
+        /* ── INFO BOX 3D hover depth ── */
+        .info-box {
+            transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+            transform-style: preserve-3d;
+        }
+        .info-box:hover {
+            transform: perspective(800px) translateZ(10px) scale(1.01);
+        }
+
+        /* ── CTA BUTTON — 3D press ── */
+        .cta .primary {
+            transition: opacity 0.3s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .cta .primary:hover {
+            opacity: 1 !important;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.2), 0 16px 32px rgba(0,0,0,0.12);
+            transform: translateY(-3px);
+        }
+        .cta .primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+        }
+
+        /* ── NAV LOGO 3D hover ── */
+        .logo img {
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .logo:hover img {
+            transform: scale(1.08) rotate(-2deg);
+        }
+
+        /* ── CONTACT ITEM 3D depth ── */
+        .contact-item {
+            transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+            transform-style: preserve-3d;
+        }
+        .contact-item:hover {
+            transform: perspective(600px) translateZ(12px);
+        }
+
+        /* ── SEE MORE BUTTON 3D ── */
+        .see-more button {
+            transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+            transform-style: preserve-3d;
+        }
+        .see-more button:hover {
+            transform: perspective(600px) translateZ(8px) translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
         /* ── SECOND MARQUEE (reversed) ── */
         .marquee-track-reverse {
             display: flex; gap: 0; white-space: nowrap;
@@ -645,13 +716,14 @@
         /* ── WORK CARD OVERLAY — slide up on hover ── */
         .work-overlay {
             transform: translateY(calc(100% - 3.2rem));
-            transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
-            background: linear-gradient(to top,
-                rgba(10,10,10,0.96) 0%,
-                rgba(10,10,10,0.75) 50%,
-                rgba(10,10,10,0.2) 80%,
-                transparent 100%);
-            backdrop-filter: blur(2px);
+            transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
+            background: linear-gradient(
+                to top,
+                rgba(15,15,20,0.88) 0%,
+                rgba(15,15,20,0.55) 55%,
+                rgba(15,15,20,0.15) 80%,
+                transparent 100%
+            );
         }
         .work-item:hover .work-overlay { transform: translateY(0); }
         .work-overlay-tag {
@@ -965,6 +1037,9 @@
     <div class="pdf-content" id="pdfContent"></div>
 </div>
 <script>
+    // ── SHARED LERP UTILITY ───────────────────────────────────────
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
     // ── INTRO LOADER ──────────────────────────────────────────────
     (function() {
         var loader = document.getElementById('introLoader');
@@ -1235,24 +1310,45 @@
 
     render(false); // init — no animation on first load
 
-    // ── 3D CARD TILT ──────────────────────────────────────────────
+    // ── 3D CARD TILT — smooth lerp, no earthquake ─────────────────
     document.querySelectorAll('.work-item').forEach(function(card) {
+        var targetRX = 0, targetRY = 0;
+        var currentRX = 0, currentRY = 0;
+        var isHovering = false;
+        var rafId = null;
+
+        function animateTilt() {
+            currentRX = lerp(currentRX, targetRX, 0.08);
+            currentRY = lerp(currentRY, targetRY, 0.08);
+            var atRest = Math.abs(currentRX) < 0.01 && Math.abs(currentRY) < 0.01 && !isHovering;
+            if (atRest) {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+                card.style.zIndex = '';
+                rafId = null;
+                return;
+            }
+            card.style.transform = 'perspective(900px) rotateX(' + currentRX + 'deg) rotateY(' + currentRY + 'deg) scale(' + (isHovering ? 1.03 : 1) + ')';
+            card.style.boxShadow = isHovering ? '0 24px 48px rgba(0,0,0,0.13)' : '';
+            rafId = requestAnimationFrame(animateTilt);
+        }
+
         card.addEventListener('mousemove', function(e) {
             var rect = card.getBoundingClientRect();
             var x = e.clientX - rect.left;
             var y = e.clientY - rect.top;
-            var cx = rect.width / 2;
-            var cy = rect.height / 2;
-            var rotX = ((y - cy) / cy) * -7;
-            var rotY = ((x - cx) / cx) *  7;
-            card.style.transform = 'perspective(700px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) scale(1.04)';
-            card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+            targetRX = ((y - rect.height / 2) / (rect.height / 2)) * -5;
+            targetRY = ((x - rect.width  / 2) / (rect.width  / 2)) *  5;
+            isHovering = true;
             card.style.zIndex = '2';
+            if (!rafId) rafId = requestAnimationFrame(animateTilt);
         });
+
         card.addEventListener('mouseleave', function() {
-            card.style.transform = '';
-            card.style.boxShadow = '';
+            targetRX = 0; targetRY = 0;
+            isHovering = false;
             card.style.zIndex = '';
+            if (!rafId) rafId = requestAnimationFrame(animateTilt);
         });
     });
 
@@ -1285,13 +1381,7 @@
     var clientsRow = document.querySelector('.clients-row');
     if (clientsRow) badgeObserver.observe(clientsRow);
 
-    // ── HERO PARALLAX on scroll (wrapper, not img) ────────────────
-    var heroImgWrap = document.querySelector('.hero-image');
-    window.addEventListener('scroll', function() {
-        if (heroImgWrap && window.scrollY < window.innerHeight) {
-            heroImgWrap.style.transform = 'translateY(' + window.scrollY * 0.08 + 'px)';
-        }
-    }, { passive: true });
+    // scroll feeds into heroParallaxTick via hpCurY offset — no extra listener needed
 
     // ── PDF MODAL ─────────────────────────────────────────────────
     function openPDF(title, pdfUrl) {
@@ -1318,6 +1408,20 @@
             if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
         });
     });
+
+    // ── SECTION 3D ENTRANCE ───────────────────────────────────────
+    document.querySelectorAll('.section').forEach(function(s) {
+        s.classList.add('section-3d');
+    });
+    var section3dObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                section3dObs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.section-3d').forEach(function(s) { section3dObs.observe(s); });
 
     // ── SPOTLIGHT EFFECT ──────────────────────────────────────────
     var spotlight = document.getElementById('spotlight');
@@ -1422,20 +1526,22 @@
         }
     }
 
-    // ── 3D MOUSE PARALLAX on hero ─────────────────────────────────
-    var heroContent = document.querySelector('.hero-content');
-    var heroImgEl   = document.querySelector('.hero-image img');
+    // ── 3D MOUSE PARALLAX on hero — smooth lerp ───────────────────
+    var heroContent  = document.querySelector('.hero-content');
+    var heroImgWrapP = document.querySelector('.hero-image');
+    var hpTargetX = 0, hpTargetY = 0, hpCurX = 0, hpCurY = 0;
+    var hpRaf = null;
+    function heroParallaxTick() {
+        hpCurX = lerp(hpCurX, hpTargetX, 0.06);
+        hpCurY = lerp(hpCurY, hpTargetY, 0.06);
+        if (heroContent) heroContent.style.transform = 'rotateY(' + (hpCurX * 2.5) + 'deg) rotateX(' + (-hpCurY * 1.5) + 'deg)';
+        if (heroImgWrapP) heroImgWrapP.style.transform = 'translateX(' + (hpCurX * -10) + 'px) translateY(' + (hpCurY * -6 + window.scrollY * 0.08) + 'px)';
+        hpRaf = requestAnimationFrame(heroParallaxTick);
+    }
     document.addEventListener('mousemove', function(e) {
-        var cx = window.innerWidth  / 2;
-        var cy = window.innerHeight / 2;
-        var dx = (e.clientX - cx) / cx;
-        var dy = (e.clientY - cy) / cy;
-        if (heroContent) {
-            heroContent.style.transform = 'rotateY(' + (dx * 3) + 'deg) rotateX(' + (-dy * 2) + 'deg)';
-        }
-        if (heroImgEl) {
-            heroImgEl.style.transform = 'translateX(' + (dx * -12) + 'px) translateY(' + (dy * -8) + 'px)';
-        }
+        hpTargetX = (e.clientX / window.innerWidth  - 0.5) * 2;
+        hpTargetY = (e.clientY / window.innerHeight - 0.5) * 2;
+        if (!hpRaf) hpRaf = requestAnimationFrame(heroParallaxTick);
     });
 
     // ── STAT BOX STAGGER ─────────────────────────────────────────
