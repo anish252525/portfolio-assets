@@ -36,7 +36,7 @@ nav ul li a:hover::after{width:100%;}
 .nav-hire::after{display:none!important;}
 
 /* ── HERO ── */
-.hero{min-height:calc(100vh - 140px);padding:0 4rem;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;align-items:center;padding-top:66px;position:relative;}
+.hero{height:calc(100vh - 130px);padding:0 4rem;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;align-items:center;padding-top:66px;position:relative;}
 .hero-content{padding:1.5rem 0 0;}
 
 .hero-eyebrow{font-size:0.68rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--g);margin-bottom:1.8rem;display:flex;align-items:center;gap:0.7rem;opacity:0;animation:fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;}
@@ -57,7 +57,7 @@ nav ul li a:hover::after{width:100%;}
 .btn-outline{background:transparent;color:var(--wh);border:1px solid var(--br);}
 .btn-outline:hover{border-color:var(--wh);transform:translateY(-2px);}
 
-.hero-image{height:100%;min-height:calc(100vh - 140px);display:flex;align-items:flex-end;justify-content:center;border-left:1px solid var(--br);background:var(--bk2);overflow:hidden;position:relative;opacity:0;animation:fadeIn 1.2s 0.3s ease forwards;perspective:1000px;}
+.hero-image{height:100%;display:flex;align-items:flex-end;justify-content:center;border-left:1px solid var(--br);background:var(--bk2);overflow:hidden;position:relative;opacity:0;animation:fadeIn 1.2s 0.3s ease forwards;perspective:1000px;}
 .hero-image::after{content:'';position:absolute;bottom:0;left:0;right:0;height:20%;background:linear-gradient(to top,var(--bk2),transparent);pointer-events:none;z-index:1;}
 
 /* 3D floor reflection */
@@ -238,7 +238,7 @@ footer{border-top:1px solid var(--br);padding:2rem 4rem;display:flex;justify-con
   nav ul li a{font-size:0.65rem;letter-spacing:1px;}
   .nav-hire{display:none;}
   .section{padding:3.5rem 1.2rem;}
-  .hero{padding:0 1.2rem;padding-top:65px;}
+  .hero{padding:0 1.2rem;padding-top:65px;height:auto;min-height:calc(100vh - 120px);}
   .hero-content{padding:2rem 0 1.5rem;}
   .hero-name{font-size:clamp(3.5rem,18vw,6rem);}
   .hero-role{font-size:clamp(1rem,4vw,1.5rem);}
