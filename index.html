@@ -221,38 +221,68 @@ footer{border-top:1px solid var(--br);padding:2rem 4rem;display:flex;justify-con
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){.hero{grid-template-columns:1fr;}.hero-image{display:none;}.hero-glow{display:none;}.about-grid{grid-template-columns:1fr;gap:3rem;}.expertise-row{grid-template-columns:1fr;}.expertise-col{border-right:none;border-bottom:1px solid var(--br);}.expertise-col:last-child{border-bottom:none;}.clients-list-grid{grid-template-columns:repeat(3,1fr);}.contact-row{grid-template-columns:1fr;}.contact-box{border-right:none;border-bottom:1px solid var(--br);}.contact-box:last-child{border-bottom:none;}}
 @media(max-width:768px){
-  nav{padding:1rem 1.2rem;}
-  nav ul{gap:1rem;}
-  nav ul li a{font-size:0.65rem;letter-spacing:1px;}
+  .reveal,.reveal-left,.reveal-right{opacity:1;transform:none;transition:none;}
+  /* NAV - hide text links, keep logo compact */
+  nav{padding:0.9rem 1.2rem;}
+  nav ul{gap:0.8rem;}
+  nav ul li a{font-size:0.6rem;letter-spacing:0.5px;}
+  nav ul li:nth-child(3){display:none;} /* hide Brand Identity - too long */
+  .nav-logo{font-size:1.2rem;}
   .nav-hire{display:none;}
+
+  /* HERO */
+  .hero{padding:0 1.2rem;padding-top:60px;height:auto;min-height:unset;}
+  .hero-content{padding:1.5rem 0 1rem;}
+  .hero-name{font-size:clamp(3.8rem,18vw,6rem);}
+  .hero-role{font-size:clamp(0.9rem,3.5vw,1.2rem);margin-top:0.5rem;}
+  .hero-btns{flex-direction:row;gap:0.8rem;margin-top:1.2rem;}
+  .btn{width:auto;flex:1;justify-content:center;padding:0.85rem 1rem;font-size:0.72rem;}
+
+  /* SECTIONS */
   .about-top{grid-template-columns:1fr;gap:2rem;}
-  .about-stats{grid-template-columns:repeat(2,1fr);}
-  .section{padding:3.5rem 1.2rem;}
-  .hero{padding:0 1.2rem;padding-top:65px;height:auto;min-height:calc(100vh - 120px);}
-  .hero-content{padding:2rem 0 1.5rem;}
-  .hero-name{font-size:clamp(3.5rem,18vw,6rem);}
-  .hero-role{font-size:clamp(1rem,4vw,1.5rem);}
-  .hero-btns{flex-direction:column;gap:0.8rem;}
-  .btn{width:100%;justify-content:center;padding:1rem 1.5rem;}
-  .stats-inner{grid-template-columns:repeat(2,1fr);padding:0 1.2rem;}
-  .stat-item{padding:1.8rem 0 1.8rem 1rem;}
-  .stat-item:first-child{padding-left:0;}
-  .stat-num{font-size:2.2rem;}
-  .sec-title{font-size:clamp(1.8rem,7vw,2.5rem);margin-bottom:2.5rem;}
+  .about-stats{grid-template-columns:repeat(4,1fr);}
+  .about-stat .stat-num{font-size:1.3rem;}
+  .about-stat .stat-lbl{font-size:0.55rem;}
+  .about-stat{padding:1rem 0.6rem;}
+  .section{padding:3rem 1.2rem;}
+  .sec-title{font-size:clamp(1.8rem,7vw,2.5rem);margin-bottom:2rem;}
+  .about-grid{gap:2rem;}
+
+  /* WORK */
   .work-grid{grid-template-columns:1fr;}
-  .work-item-img{aspect-ratio:16/9;}
+  .work-item-img{aspect-ratio:4/3;}
+  .work-overlay{opacity:1;background:rgba(10,10,10,0.6);}
+  .work-overlay h3{transform:translateY(0);opacity:1;}
+  .work-overlay p{transform:translateY(0);opacity:1;}
   .filter-bar{gap:0.4rem;}
-  .filter-btn{padding:0.4rem 0.7rem;font-size:0.62rem;}
+  .filter-btn{padding:0.4rem 0.7rem;font-size:0.6rem;}
+
+  /* BRANDS */
   .brand-grid{grid-template-columns:1fr;}
+
+  /* EXPERTISE */
   .expertise-row{grid-template-columns:1fr;}
   .expertise-col{border-right:none;border-bottom:1px solid var(--br);}
   .expertise-col:last-child{border-bottom:none;}
   .clients-list-grid{grid-template-columns:repeat(2,1fr);}
   .client-box{padding:1.2rem 0.8rem;}
+
+  /* STATS (old strip - hidden now but just in case) */
+  .stats-inner{grid-template-columns:repeat(2,1fr);padding:0 1.2rem;}
+  .stat-item{padding:1.5rem 0 1.5rem 1rem;}
+  .stat-item:first-child{padding-left:0;}
+  .stat-num{font-size:1.8rem;}
+
+  /* CONTACT */
   .contact-row{grid-template-columns:1fr;}
-  .contact-box{border-right:none;border-bottom:1px solid var(--br);padding:2rem 1.2rem;}
+  .contact-box{border-right:none;border-bottom:1px solid var(--br);padding:1.8rem 1.2rem;}
   .contact-box:last-child{border-bottom:none;}
+  .contact-box a,.contact-box span{font-size:0.9rem;}
+
+  /* FOOTER */
   footer{flex-direction:column;gap:1rem;text-align:center;padding:1.8rem 1.2rem;}
+
+  /* MISC */
   .scroll-hint{display:none;}
   .pdf-modal-header{padding:1rem 1.2rem;}
   .pdf-content{padding:1rem;}
